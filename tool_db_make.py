@@ -31,7 +31,25 @@ class db_make(): #讀取excel 單一零件
                 rec_bn.bn007 > '{1}'
             ORDER BY bn005
             """
+            # br010 = 1 已派工
         s = s.format(br018, bn007)
+        df = pd.read_sql(s, self.cn)
+        return df if len(df.index) > 0 else None
+
+    def get_fbnr_df(self, br018): #所有尚未排程 的派工資料)
+        s = """
+            SELECT br001,br002,br003,br004,br005,br006,br007,br008,br009,br010,br013,br014,br015,br018,br019,br023
+            FROM rec_br
+            WHERE
+                br010 = 1 AND
+                br018 = {0} AND
+                (br023 Is Null Or br023 = '')
+            ORDER BY br011
+            """
+            # br010 = 1 已派工
+            # (br023 Is Null Or br023 = '') 尚未排程
+
+        s = s.format(br018)
         df = pd.read_sql(s, self.cn)
         return df if len(df.index) > 0 else None
 
@@ -52,12 +70,16 @@ def test1():
     # new id
     mk = db_make()
     # df = mk.get_ma_df(1)
-    df = mk.get_bn_df(1, '2022-09-01')
+    # df = mk.get_bn_df(1, '2022-09-01')
     # df1 = df[['bn001','bt004','bt005']]
-    df1 = df[['sbr003','br002','br003']]
-    pd.set_option('display.max_rows', df1.shape[0]+1) # 顯示最多列
-    pd.set_option('display.max_columns', None) #顯示最多欄位    
-    print(df1)
+    # df1 = df[['sbr003','br002','br003']]
+    # pd.set_option('display.max_rows', df1.shape[0]+1) # 顯示最多列
+    # pd.set_option('display.max_columns', None) #顯示最多欄位    
+    # print(df1)
+
+    df = mk.get_fbnr_df(1)
+    print(df)
+
     # d1 =mk.get_sy002()
     # print(d1)
     # print(type(d1))

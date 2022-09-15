@@ -80,9 +80,14 @@ if True: # Alignment
     ah_center_bottom = Alignment(horizontal='center', vertical ='bottom')
     
 if True: # color fill 填滿顏色
-    cf_none = PatternFill(fill_type=None) #不填滿
-    cf_yellow = PatternFill(start_color="FFFF00",  fill_type = "solid")  # 黃色
-    cf_gray = PatternFill(start_color="CACACA",  fill_type = "solid")    # 灰色
-    cf_blue = PatternFill(start_color="3CCEFF",  fill_type = "solid")    # 藍色
-    cf_khaki = PatternFill(start_color="F0B000",  fill_type = "solid")    # 土黃色
-    cf_green = PatternFill(start_color="C3F069",  fill_type = "solid")    # 綠色    
+    # https://datascientyst.com/full-list-named-colors-pandas-python-matplotlib/
+    cf_none =   PatternFill(fill_type=None) #不填滿
+    cf_yellow = PatternFill(start_color="FFFF00",  fill_type = "solid") # 黃色 #FFFF00
+    cf_gray =   PatternFill(start_color="CACACA",  fill_type = "solid") # 灰色 #CACACA
+    cf_blue =   PatternFill(start_color="3CCEFF",  fill_type = "solid") # 藍色 #3CCEFF
+    cf_khaki =  PatternFill(start_color="F0B000",  fill_type = "solid") # 土黃 #F0B000
+    cf_green =  PatternFill(start_color="C3F069",  fill_type = "solid") # 綠色 #C3F069
+    cf_pink =   PatternFill(start_color="FF1493",  fill_type = "solid") # 桃紅 #FF1493
+    cf_red =    PatternFill(start_color="ff3300",  fill_type = "solid") # 紅色 #ff3300
+    cf_purple = PatternFill(start_color="DDA0DD",  fill_type = "solid") # 紫色 #DDA0DD
+    
