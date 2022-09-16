@@ -4,13 +4,15 @@ if True: # 固定引用開發環境 或 發佈環境 的 路徑
     sys.path.append(config_path)
     
 import pandas as pd
-import pyodbc
+# import pyodbc
+from sqlalchemy.engine import URL
+from sqlalchemy import create_engine
 from config import *
 
 class db_make(): #讀取excel 單一零件
     def __init__(self):
-        self.cn = pyodbc.connect(config_conn_MAKE) 
-        # self.data_bn = self.get_bn_df()
+        # self.cn = pyodbc.connect(config_conn_MAKE) 
+        self.cn = create_engine(URL.create('mssql+pyodbc', query={'odbc_connect': config_conn_MAKE})).connect()
 
     def get_bn_df(self, br018, bn007): #所有排程資料
         # br018 部門ID

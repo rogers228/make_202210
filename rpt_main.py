@@ -15,6 +15,7 @@ import rpt_bng01
 def main(report_name, depart):
     au = tool_auth.Authorization()
     if not any([au.isqs(1), au.isqs(2)]): # 權限 1啟用派工作業 or 2啟用排程作業
+        click.echo('無權限!')
         return # 無權限 退出
 
     filename = report_name + '_' + time.strftime("%Y%m%d%H%M%S", time.localtime()) + '.xlsx'
