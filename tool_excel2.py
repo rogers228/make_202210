@@ -149,13 +149,8 @@ class tool_excel(): #讀取excel 單一零件
 
     def open_xls(self):
         if os.path.exists(self.file): #檔案存在
-            # 使用cmd 使用excel啟動 最大化 該檔案
-            try:
-                cmd = r'start "" /max EXCEL.EXE "' + self.file + '"'
-                os.system(cmd)
-            except:
-                os.startfile(self.file)
-
+            os.startfile(self.file)
+            
 def test1():
     print('test1')
 
