@@ -55,6 +55,23 @@ class db_make(): #讀取excel 單一零件
         df = pd.read_sql(s, self.cn)
         return df if len(df.index) > 0 else None
 
+    def get_dp_pm(self): #所有工程
+        s = """
+        SELECT 
+            pm001,pm002,pm003,pm004,pm005,pm006,pm007,pm008,pm009,pm010,
+            pm011,pm012,pm013,pm014,pm015,pm016,pm017,pm018,pm019,pm020,
+            pm021,pm022,pm023,pm024,pm025,pm026,pm027
+        FROM rec_pm
+        ORDER BY pm004 
+        """
+        df = pd.read_sql(s, self.cn)
+        return df if len(df.index) > 0 else None
+
+    def get_dp_df(self): #所有部門
+        s = "SELECT dp001,dp002,dp003 FROM rec_dp ORDER BY dp002"
+        df = pd.read_sql(s, self.cn) #轉pd
+        return df if len(df.index) > 0 else None
+
     def get_ma_df(self, ma004): #所有機台 
         # ma004 部門id
         s = "SELECT ma001,ma002,ma003,ma008 FROM rec_ma WHERE ma004 = {0} ORDER BY ma008"
@@ -79,7 +96,7 @@ def test1():
     # pd.set_option('display.max_columns', None) #顯示最多欄位    
     # print(df1)
 
-    df = mk.get_fbnr_df(1)
+    df = mk.get_dp_df()
     print(df)
 
     # d1 =mk.get_sy002()
