@@ -122,37 +122,47 @@ class db_make(): #讀取excel 單一零件
     #     df = pd.read_sql(s, self.cn) #轉pd
     #     return df if len(df.index) > 0 else None
 
+    # def test_to_df(self):
+    #     s = """
+    #         SELECT
+    #             ma008,ma003,pm002,
+    #             SUBSTRING(br024,1,4) AS a1,br004,ta.TA024
+    #             bn041,bn042,bn043,bn065,
+    #             convert(varchar, bn012, 112) AS bn012,
+    #             convert(varchar, bn044, 112) AS bn044,
+    #             convert(varchar, bn045, 112) AS bn045,
+    #             CASE 
+    #                 WHEN bn061 = 0 THEN '0.未開始'
+    #                 WHEN bn061 = 1 THEN '1.開始準備'
+    #                 WHEN bn061 = 2 THEN '2.完成準備'
+    #                 WHEN bn061 = 3 THEN '3.開始校模(校模中)'
+    #                 WHEN bn061 = 4 THEN '4.開始加工(生產中)'
+    #                 WHEN bn061 = 5 THEN '5.結束(完工)'
+    #                 ELSE ''
+    #             END AS bn061,
+    #             bn070,bn071
+    #         FROM YEOSHE_MAKE.dbo.rec_bn
+    #             LEFT JOIN YEOSHE_MAKE.dbo.rec_ma ON bn002=ma001
+    #             LEFT JOIN YEOSHE_MAKE.dbo.rec_br ON bn003=br001
+    #             LEFT JOIN YEOSHE_MAKE.dbo.rec_pm ON bn004=pm001
+    #             LEFT JOIN YST.dbo.SFCTA as ta ON br002 = ta.TA001 AND br003 = ta.TA002 AND SUBSTRING(br024,1,4)=ta.TA003
+
+    #         WHERE
+    #             br002 = {0} AND
+    #             br003 = {1}
+    #         ORDER BY SUBSTRING(br024,6,4), bn012
+    #         """
+    #     s = s.format('5101', '20220418001')
+    #     df = pd.read_sql(s, self.cn) #轉pd
+    #     return df if len(df.index) > 0 else None
+
     def test_to_df(self):
         s = """
             SELECT
-                ma008,ma003,pm002,
-                SUBSTRING(br024,1,4) AS a1,br004,ta.TA024
-                bn041,bn042,bn043,bn065,
-                convert(varchar, bn012, 112) AS bn012,
-                convert(varchar, bn044, 112) AS bn044,
-                convert(varchar, bn045, 112) AS bn045,
-                CASE 
-                    WHEN bn061 = 0 THEN '0.未開始'
-                    WHEN bn061 = 1 THEN '1.開始準備'
-                    WHEN bn061 = 2 THEN '2.完成準備'
-                    WHEN bn061 = 3 THEN '3.開始校模(校模中)'
-                    WHEN bn061 = 4 THEN '4.開始加工(生產中)'
-                    WHEN bn061 = 5 THEN '5.結束(完工)'
-                    ELSE ''
-                END AS bn061,
-                bn070,bn071
+                bn001, bn002, bn012
             FROM YEOSHE_MAKE.dbo.rec_bn
-                LEFT JOIN YEOSHE_MAKE.dbo.rec_ma ON bn002=ma001
-                LEFT JOIN YEOSHE_MAKE.dbo.rec_br ON bn003=br001
-                LEFT JOIN YEOSHE_MAKE.dbo.rec_pm ON bn004=pm001
-                LEFT JOIN YST.dbo.SFCTA as ta ON br002 = ta.TA001 AND br003 = ta.TA002 AND SUBSTRING(br024,1,4)=ta.TA003
-
-            WHERE
-                br002 = {0} AND
-                br003 = {1}
-            ORDER BY SUBSTRING(br024,6,4), bn012
+            ORDER BY bn012
             """
-        s = s.format('5101', '20220418001')
         df = pd.read_sql(s, self.cn) #轉pd
         return df if len(df.index) > 0 else None
 def test1():
@@ -162,8 +172,8 @@ def test1():
     # df = mk.get_bn_df(1, '2022-09-01')
     df = mk.test_to_df()
     # df1 = df[['br004','br024','a1','a2','MW002','a3','MD002']]
-    pd.set_option('display.max_rows', df.shape[0]+1) # 顯示最多列
-    pd.set_option('display.max_columns', None) #顯示最多欄位    
+    # pd.set_option('display.max_rows', df.shape[0]+1) # 顯示最多列
+    # pd.set_option('display.max_columns', None) #顯示最多欄位    
     print(df)
 
 
